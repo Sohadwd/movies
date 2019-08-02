@@ -63,6 +63,10 @@
   "pre-commit": [
     "lint"
   ],
+  "assets": [
+    "src/favicon.ico",
+    "src/assets"
+  ],
   "scripts": {
     "dev": "cross-env BROWSER=none HOST=0.0.0.0 roadhog server",
     "start": "roadhog buildDll && cross-env BROWSER=none HOST=0.0.0.0 roadhog server",
