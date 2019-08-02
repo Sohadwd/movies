@@ -2,6 +2,16 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const webpack = require('webpack')
 
+const firebaseConfig = {
+  apiKey: 'AIzaSyDYW6KInjLB43LG6pJtiU88dFlo4DFxxVM',
+  authDomain: 'popular-movies-9db1c.firebaseapp.com',
+  databaseURL: 'https://popular-movies-9db1c.firebaseio.com',
+  projectId: 'popular-movies-9db1c',
+  storageBucket: '',
+  messagingSenderId: '135629270050',
+  appId: '1:135629270050:web:608ed381b3ea8484',
+}
+
 module.exports = (webpackConfig, env) => {
   const production = env === 'production'
   // FilenameHash
@@ -17,12 +27,10 @@ module.exports = (webpackConfig, env) => {
         return item
       })
     }
-    webpackConfig.plugins.push(
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false,
-      })
-    )
+    webpackConfig.plugins.push(new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }))
   }
 
   webpackConfig.plugins = webpackConfig.plugins.concat([
@@ -40,6 +48,9 @@ module.exports = (webpackConfig, env) => {
       } : null,
       hash: true,
       headScripts: production ? null : ['/roadhog.dll.js'],
+    }),
+    new webpack.DefinePlugin({
+      FIREBASE_CONFIG: firebaseConfig,
     }),
   ])
 
